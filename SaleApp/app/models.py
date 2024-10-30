@@ -1,6 +1,6 @@
 from sqlalchemy.orm import relationship
 from sqlalchemy import  Column, Integer,String,Float,ForeignKey
-from SaleApp.app import db,app
+from app import db,app
 
 class Category(db.Model):
     # --tablename__='cate'
