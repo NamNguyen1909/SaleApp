@@ -1,3 +1,5 @@
+# index.py
+
 import math
 
 from flask import render_template,request,redirect
@@ -12,7 +14,7 @@ from flask_login import login_user,logout_user
 def index():
     cates=dao.load_categories()
 
-    page=request.args.get('page',1)
+    page=request.args.get('page',1) # Flask sẽ đọc giá trị tham số page từ URL
 
 
     cate_id=request.args.get('category_id')

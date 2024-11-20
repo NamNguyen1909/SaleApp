@@ -1,3 +1,5 @@
+# dao.py
+
 from itertools import product
 
 from app.models import Category,Product,User
@@ -23,16 +25,16 @@ def load_products(kw=None,cate_id=None,page=1):
     query = Product.query
 
     if kw:
-        query=query.filter(Product.name.contains(kw))
+        query=query.filter(Product.name.contains(kw))  #Lọc sản phẩm có tên chứa từ khóa
 
     if cate_id:
-        query=query.filter(Product.category_id==cate_id)
+        query=query.filter(Product.category_id==cate_id)  # Lọc sản phẩm thuộc danh mục
 
     page_size=app.config["PAGE_SIZE"]
     start=(page-1)*page_size
-    query=query.slice(start,start+page_size)
+    query=query.slice(start,start+page_size) # Cắt ra phần tử từ start đến start + page_size
 
-    return query.all()
+    return query.all() #trả về tất cả các sản phẩm phù hợp với các điều kiện trong truy vấn
 
 def count_products():
     return Product.query.count()
@@ -145,22 +147,21 @@ def count_products():
     #     "category_id": 1
     # }]
 
-def add_user(name,username,password,avatar):
+def add_user(name,username,password,avatar=None):
     password = str(hashlib.md5(password.encode('utf-8')).hexdigest())
-
-    u=User(name=name,username=username,password=password,avatar="https://res.cloudinary.com/dxxwcby8l/image/upload/v1646729533/zuur9gzztcekmyfenkfr.jpg")
+    # hoặc có thể set url avaatar mặc định ở đây thay vì models.User
+    u=User(name=name,username=username,password=password)
 
     if avatar:
         res=cloudinary.uploader.upload(avatar)
-        print(res)
         u.avatar=res.get("secure_url")
     db.session.add(u)
     db.session.commit()
 
 def auth_user(username,password):
-    password = str(hashlib.md5(password.encode('utf-8')).hexdigest())
+    password = str(hashlib.md5(password.strip().encode('utf-8')).hexdigest())
 
-    return User.query.filter(User.username.__eq__(username),
+    return User.query.filter(User.username.__eq__(username.strip()),
                              User.password.__eq__(password)).first() #kiểm tra tồn tại đúng hay không
 
 def get_user_by_id(id):

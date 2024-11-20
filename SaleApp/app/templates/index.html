@@ -1,7 +1,10 @@
+<!--index.html-->
+
 {% extends 'layout/base.html' %}
 
 {% block content %}
 <section>
+    {% if pages > 1 %}
     <ul class="pagination mt-1">
 
         {%for i in range(1,pages+1)%}
@@ -9,6 +12,8 @@
         {%endfor%}
 
     </ul>
+    {% endif %}
+
 </section>
 
 {%if products %}
