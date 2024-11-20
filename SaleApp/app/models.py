@@ -4,12 +4,13 @@ from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean,Enum
 from app import db,app
 import hashlib
 from enum import Enum as RoleEnum
+from flask_login import UserMixin
 
 class UserRole(RoleEnum):
     ADMIN=1
     USER=2
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     id=Column(Integer,primary_key=True,autoincrement=True)
     name=Column(String(100),nullable=False)
     username=Column(String(100),nullable=False,unique=True)
@@ -32,6 +33,8 @@ class Product(db.Model):
     price=Column(Float,default=0)
     image=Column(String(100),nullable=True)
     category_id=Column(Integer,ForeignKey(Category.id),nullable=False)
+
+
 
 if __name__=='__main__':
     with app.app_context():
