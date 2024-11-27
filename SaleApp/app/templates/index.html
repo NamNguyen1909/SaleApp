@@ -26,7 +26,7 @@
                 <h4 class="card-title">{{p.name}}</h4>
                 <p class="card-text">{{p.price}} VND</p>
                 <a href="#" class="btn btn-primary">Xem chi tiet</a>
-                <button class="btn btn-danger">Dat hang</button>
+                <button class="btn btn-danger booking" onclick="addToCart({{p.id}},'{{p.name}}',{{p.price}})" >Dat hang</button>
             </div>
         </div>
     </div>

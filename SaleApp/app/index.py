@@ -14,7 +14,6 @@ from app.models import UserRole
 @app.route ("/")
 
 def index():
-    cates=dao.load_categories()
 
     page=request.args.get('page',1) # Flask sẽ đọc giá trị tham số page từ URL
 
@@ -26,7 +25,7 @@ def index():
     page_size=app.config["PAGE_SIZE"]
     total=dao.count_products()
 
-    return render_template('index.html',categories=cates,products=prods,pages=math.ceil(total/page_size))
+    return render_template('index.html',products=prods,pages=math.ceil(total/page_size))
 
 @app.route ("/register", methods=['get','post'])
 def register_view():
@@ -100,11 +99,22 @@ def add_to_cart():
 
     return jsonify(utils.cart_stats(cart))
 
+@app.route('/cart')
+def cart_view():
+    return render_template('cart.html')
+
 
 @login.user_loader
 def load_user(user_id):
 
     return dao.get_user_by_id(user_id)
+
+@app.context_processor #gắn cái này vào thì dữ liệu luôn được phản hồi trong mọi request
+def common_response_data():
+    return {
+        'categories':dao.load_categories(),
+        'cart_stats':utils.cart_stats(session.get('cart'))
+    }
 
 if __name__== '__main__':
     with app.app_context():
