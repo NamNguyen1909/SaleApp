@@ -18,7 +18,7 @@
                 {% if current_user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link text-danger" href="/">
-                        <img src="{{current_user.avatar}}" width="60" class="rounded-circle">Chào{{current_user.username}}
+                        <img src="{{current_user.avatar}}" width="30" class="rounded-circle">Chào{{current_user.username}}
                     </a>
                 </li>
 
@@ -34,6 +34,10 @@
                     <a class="nav-link text-info" href="/register">&#129333;Đăng kí</a>
                 </li>
                 {% endif %}
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/cart">&#128722; <span class="badge bg-danger">0</span></a>
+                </li>
 
 
             </ul>

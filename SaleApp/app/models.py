@@ -27,6 +27,9 @@ class Category(db.Model):
     name =Column(String(50),nullable=False,unique=True)
     products = relationship('Product',backref = 'category', lazy = True)
 
+    def __str__(self):
+        return self.name
+
 class Product(db.Model):
     id=Column(Integer,primary_key=True,autoincrement=True)
     name =Column(String(50),nullable=False,unique=True)
@@ -35,19 +38,21 @@ class Product(db.Model):
     image=Column(String(500),nullable=True)
     category_id=Column(Integer,ForeignKey(Category.id),nullable=False)
 
+    def __str__(self):
+        return self.name
 
 
 if __name__=='__main__':
     with app.app_context():
         # pass
         db.create_all()                 #chay de tao db
-        #
+
         # u=User(name="admin",username="admin",password=str(hashlib.md5("123456".encode('utf-8')).hexdigest()),
         #        avatar="https://res.cloudinary.com/dxxwcby8l/image/upload/v1646729533/zuur9gzztcekmyfenkfr.jpg",
         #        user_role=UserRole.ADMIN)
         # db.session.add(u)
         # db.session.commit()
-
+        #
         # c1=Category(name='Mobile')
         # c2=Category(name='Tablet')
         # c3=Category(name='Desktop')
