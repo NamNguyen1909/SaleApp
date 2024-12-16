@@ -1,9 +1,12 @@
+<!--SaleApp/app/templates/login.html-->
+
 {% extends 'layout/base.html' %}
 
 {% block content %}
 <h1 class="text-center text-danger mt-1">ĐĂNG NHẬP</h1>
 
-<form method="post" action="/login">
+<form method="post" >
+<!--   Bỏ action sau khi điều hướng next nhưng vẫn hoạt động bình thường. Điều này có nghĩa là dữ liệu từ form sẽ được gửi tới URL của chính trang hiện tại (/login) mặc định, vì khi không chỉ định action, form sẽ tự động gửi yêu cầu POST tới URL của chính trang chứa form.-->
 
     <div class="form-floating mb-3 mt-3">
         <input type="text" class="form-control" id="username" placeholder="Họ tên" name="username">

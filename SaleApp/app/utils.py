@@ -1,3 +1,5 @@
+# SaleApp/app/utils.py
+
 def cart_stats(cart):
     total_quantity, total_amount=0, 0
     if cart:

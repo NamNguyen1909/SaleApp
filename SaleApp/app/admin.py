@@ -1,3 +1,5 @@
+# SaleApp/app/admin.py
+
 from app import db,app
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView

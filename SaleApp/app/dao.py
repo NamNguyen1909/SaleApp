@@ -1,11 +1,12 @@
-# dao.py
+# SaleApp/app/dao.py
 
 from itertools import product
 
-from app.models import Category,Product,User
+from app.models import Category,Product,User,Receipt,ReceiptDetails
 from app import app, db
 import hashlib
 import cloudinary.uploader
+from flask_login import current_user
 
 def load_categories():
     return Category.query.order_by('id').all()
@@ -170,3 +171,16 @@ def auth_user(username,password,role=None):
 
 def get_user_by_id(id):
     return User.query.get(id)
+
+def add_receipt(cart):
+    if cart:
+        r=Receipt(user=current_user)
+#       user nằm trong backrep
+        db.session.add(r)
+
+        for c in cart.values():
+            d=ReceiptDetails(quantity=c['quantity'],unit_price=['price'],
+                             product_id=c['id'],receipt=r)
+            db.session.add()
+
+        db.session.commit()
